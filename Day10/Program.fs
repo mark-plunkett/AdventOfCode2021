@@ -13,12 +13,11 @@ let pairs = dict [
 
 module Part1 =
 
-    let closeScores = dict [
-        ')', 3
-        ']', 57
-        '}', 1197
-        '>', 25137
-    ]
+    let points = function
+        | ')' -> 3
+        | ']' -> 57
+        | '}' -> 1197
+        | '>' -> 25137
 
     let scoreLine (line : string) =
         line
@@ -31,7 +30,7 @@ module Part1 =
                 else closes, Some c
         ) ([], None)
         |> Seq.tryPick snd
-        |> Option.map (fun c -> closeScores.[c])
+        |> Option.map points
 
     let solve input =
         input
@@ -41,12 +40,11 @@ module Part1 =
 
 module Part2 =
 
-    let closeScores = dict [
-        ')', 1L
-        ']', 2L
-        '}', 3L
-        '>', 4L
-    ]
+    let points = function
+        | ')' -> 1L
+        | ']' -> 2L
+        | '}' -> 3L
+        | '>' -> 4L
 
     let scoreLine (line : string) =
         line
@@ -55,7 +53,7 @@ module Part2 =
             | true, close -> close :: closeChars
             | false, _ -> List.tail closeChars
         ) []
-        |> List.fold (fun total c -> (5L * total) + closeScores.[c]) 0L
+        |> List.fold (fun total c -> (5L * total) + points c) 0L
 
     let solve input =
         input
